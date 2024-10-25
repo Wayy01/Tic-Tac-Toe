@@ -1,0 +1,330 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* Add at the beginning of your CSS file */
+:root {
+    /* Light theme variables */
+    --bg-color: #f0f2f5;
+    --text-color: #1a1a2e;
+    --primary-color: #4ecca3;
+    --secondary-color: #16213e;
+    --container-bg: rgba(255, 255, 255, 0.9);
+    --cell-bg: rgba(0, 0, 0, 0.05);
+    --cell-border: rgba(78, 204, 163, 0.4);
+}
+
+[data-theme="dark"] {
+    /* Dark theme variables */
+    --bg-color: #1a1a2e;
+    --text-color: #ffffff;
+    --primary-color: #4ecca3;
+    --secondary-color: #16213e;
+    --container-bg: rgba(255, 255, 255, 0.05);
+    --cell-bg: rgba(255, 255, 255, 0.05);
+    --cell-border: rgba(78, 204, 163, 0.2);
+}
+
+/* Theme toggle button styles */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--primary-color);
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(78, 204, 163, 0.3);
+}
+
+.theme-toggle svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: var(--bg-color);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.sun-icon {
+    display: none;
+}
+
+[data-theme="dark"] .sun-icon {
+    display: block;
+}
+
+[data-theme="dark"] .moon-icon {
+    display: none;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: var(--bg-color);
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-color);
+}
+
+.game-container {
+    text-align: center;
+    background: var(--container-bg);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--cell-border);
+}
+
+h1 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-size: 2.5em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.scoreboard {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 1rem;
+    font-size: 1.2em;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.message {
+    margin-bottom: 1rem;
+    font-size: 1.5em;
+    color: var(--primary-color);
+    height: 30px;
+    transition: all 0.3s ease;
+}
+
+.board {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-gap: 10px;
+    margin: 1rem auto;
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    background: var(--cell-bg);
+    border: 2px solid var(--cell-border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 15px;
+    color: var(--primary-color);
+}
+
+.cell:hover {
+    background: rgba(78, 204, 163, 0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(78, 204, 163, 0.2);
+}
+
+.cell.filled {
+    animation: popIn 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.cell.winner {
+    animation: winPulse 1s ease infinite;
+}
+
+.controls {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+button {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: var(--primary-color);
+    color: var(--bg-color);
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--primary-color);
+    opacity: 0.9;
+}
+
+.ai-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+input[type="checkbox"] {
+    accent-color: #4ecca3;
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: var(--bg-color);
+    padding: 2rem;
+    border-radius: 15px;
+    border: 1px solid var(--cell-border);
+    text-align: center;
+    max-width: 90%;
+    width: 400px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+@keyframes popIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    70% { transform: scale(1.2); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes winPulse {
+    0% { box-shadow: 0 0 0 0 rgba(78, 204, 163, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(78, 204, 163, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(78, 204, 163, 0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+    .board {
+        grid-template-columns: repeat(3, 80px);
+        grid-gap: 5px;
+    }
+
+    .cell {
+        width: 80px;
+        height: 80px;
+        font-size: 2em;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    .game-container {
+        padding: 1rem;
+        margin: 1rem;
+    }
+}
+
+/* Add these styles to your existing CSS */
+.winning-line {
+    position: absolute;
+    background-color: #4ecca3;
+    z-index: 1;
+    transform-origin: left;
+}
+
+.winning-line.horizontal {
+    height: 4px;
+    animation: drawLineHorizontal 0.3s ease-out forwards;
+}
+
+.winning-line.vertical {
+    width: 4px;
+    animation: drawLineVertical 0.3s ease-out forwards;
+}
+
+.winning-line.diagonal {
+    height: 4px;
+    animation: drawLineDiagonal 0.3s ease-out forwards;
+}
+
+@keyframes drawLineHorizontal {
+    0% { transform: scaleX(0); }
+    100% { transform: scaleX(1); }
+}
+
+@keyframes drawLineVertical {
+    0% { transform: scaleY(0); }
+    100% { transform: scaleY(1); }
+}
+
+@keyframes drawLineDiagonal {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+}
+
+/* Add to your CSS */
+.theme-transition {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.difficulty-select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid var(--cell-border);
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Poppins', sans-serif;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.difficulty-select:hover {
+    border-color: var(--primary-color);
+}
+
+.difficulty-select option {
+    background: var(--bg-color);
+    color: var(--text-color);
+    padding: 8px;
+}

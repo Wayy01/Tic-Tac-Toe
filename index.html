@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Add this right after the opening body tag -->
+    <button id="themeToggle" class="theme-toggle">
+        <svg class="sun-icon" viewBox="0 0 24 24">
+            <path d="M12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.65 0-3 1.35-3 3s1.35 3 3 3 3-1.35 3-3-1.35-3-3-3zm0-2V4m0 16v-3M4 12H1m22 0h-3M5.64 5.64L3.5 3.5m16.36.14l-2.14 2.14M5.64 18.36l-2.14 2.14m16.36-.14l-2.14-2.14"/>
+        </svg>
+        <svg class="moon-icon" viewBox="0 0 24 24">
+            <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"/>
+        </svg>
+    </button>
+
+    <div class="game-container">
+        <h1>Tic Tac Toe</h1>
+        <div class="scoreboard">
+            <div>Player X: <span id="scoreX">0</span></div>
+            <div>Player O: <span id="scoreO">0</span></div>
+        </div>
+        <div class="message" id="message">Player X's turn</div>
+        <div class="board" id="board">
+            <div class="cell" data-index="0" role="button" aria-label="Cell 1" tabindex="0"></div>
+            <div class="cell" data-index="1" role="button" aria-label="Cell 2" tabindex="0"></div>
+            <div class="cell" data-index="2" role="button" aria-label="Cell 3" tabindex="0"></div>
+            <div class="cell" data-index="3" role="button" aria-label="Cell 4" tabindex="0"></div>
+            <div class="cell" data-index="4" role="button" aria-label="Cell 5" tabindex="0"></div>
+            <div class="cell" data-index="5" role="button" aria-label="Cell 6" tabindex="0"></div>
+            <div class="cell" data-index="6" role="button" aria-label="Cell 7" tabindex="0"></div>
+            <div class="cell" data-index="7" role="button" aria-label="Cell 8" tabindex="0"></div>
+            <div class="cell" data-index="8" role="button" aria-label="Cell 9" tabindex="0"></div>
+        </div>
+        <div class="controls">
+            <button id="restartButton">Restart Game</button>
+            <label class="ai-toggle">
+                <input type="checkbox" id="playAI">
+                Play against AI
+            </label>
+        </div>
+    </div>
+    <div class="modal" id="restartModal">
+        <div class="modal-content">
+            <h2>Restart Game</h2>
+            <p>Are you sure you want to restart the game?</p>
+            <div class="modal-buttons">
+                <button id="confirmRestart">Yes</button>
+                <button id="cancelRestart">No</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
